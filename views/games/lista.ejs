@@ -1,0 +1,73 @@
+<%- include('../partials/header.ejs'); %> <%- include('../partials/navbar.ejs'); %>
+
+<br />
+
+<div class="container">
+  <h2>Lista de Games</h2>
+  <br />
+
+    <div class="col-2">
+      <a href="/" class="btn btn-success"> Cadastrar Game</a>
+    </div><br>
+ 
+  <hr />
+
+  <% if (games == "") { %>
+  <div class="alert alert-danger" role="alert">Não há jogos cadstrados!!</div>
+  <% } %> <% if (games != "") { %>
+  <br />
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Console</th>
+        <th scope="col">Data</th>
+        <th scope="col">Comentários</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% games.forEach(function(game) { %>
+      <tr>
+        <td id="<%- game.id %>"><%- game.id %></td>
+        <td><%- game.nome %></td>
+        <td><%- game.categoria %></td>
+        <td><%- game.console %></td>
+        <td><%- game.data_lancamento %></td>
+        <td><%- game.comentarios %></td>
+        <td>
+          <a href="/games/editar/<%= game.id%>" class="btn btn-warning">Editar</a>  
+          
+        </td>
+        <td>
+          <form
+            action="/games/lista/delete/<%= game.id%>"
+            method="post"
+            style="display: inline"
+            onsubmit="confirmaDelecao(event, this)"
+          >
+            <input type="hidden" name="id" value="<%= games.id %>" />
+            <button class="btn btn-danger">Deletar</button>
+          </form>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+</div>
+<script>
+  function confirmaDelecao(event, form) {
+    event.preventDefault();
+    var decision = confirm("Deseja deletar o game?");
+    if (decision) {
+      form.submit();
+    }
+  }
+</script>
+
+<%- include('../partials/footer.ejs'); %>

@@ -1,0 +1,123 @@
+<%- include('partials/header.ejs'); %> <%- include('partials/navbar.ejs'); %>
+
+<br />
+<div class="container">
+  <form action="/" method="post">
+    <div class="card">
+      <div class="card-header text-center">
+        <h2>Cadastro de games</h2>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4">
+            <label>Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Digite o nome do game..."
+              name="nome"
+              value="<%= nome%>"
+            />
+            <p style="color: red"><%= nomeError%></p>
+          </div>
+          <div class="col-4">
+            <label>Categoria</label>
+            <div class="form-group">
+              <select class="form-control" id="categoria" name="categoria">
+                <option selected>-</option>
+                <option>Guerra</option>
+                <option>aventura</option>
+                <option>luta</option>
+                <option>tiro</option>
+              </select>
+            </div>
+            <p style="color: red"><%= categoriaError%></p>
+          </div>
+
+          <div class="col-4">
+            <label>Console</label>
+            <div class="form-group">
+              <select class="form-control" id="categoria" name="console">
+                <option selected>-</option>
+                <option>PS5</option>
+                <option>Super Nintendo</option>
+                <option>Nitendo 64</option>
+                <option>PC</option>
+              </select>
+            </div>
+            <p style="color: red"><%= consoleError %></p>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <label for="totalAmt">Preco</label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                class="form-control"
+                placeholder="Digite o nome do game..."
+                name="preco"
+                value="<%= preco%>"
+              />
+              <p style="color: red"><%= precoError%></p>
+            </div>
+            <div class="col-4">
+              <label>Data</label>
+              <input
+                type="date"
+                class="form-control"
+                placeholder="Digite o nome do game..."
+                name="data"
+              />
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label class="label-control">Comentarios</label>
+            <div class="form-group">
+              <textarea name="comentarios" id="comentarios"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid gap-3">
+          <button type="submit" class="btn btn-success">SALVAR</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<%- include('partials/footer.ejs'); %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+
+<script>
+  tinymce.init({
+    language: "pt_BR",
+    selector: "#comentarios",
+    plugins: [
+      "advlist",
+      "autolink",
+      "link",
+      "image",
+      "lists",
+      "preview",
+      "searchreplace",
+      "wordcount",
+      "fullscreen",
+      "insertdatetime",
+      "media",
+      "save",
+      "table",
+      "emoticons",
+    ],
+
+    init_instance_callback: () => {
+      tinymce
+        .get("article")
+        .setContent(document.getElementById("content").innerHTML);
+    },
+  });
+</script>

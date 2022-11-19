@@ -1,0 +1,148 @@
+<%- include('../partials/header.ejs'); %>
+<%- include('../partials/navbar.ejs'); %>
+
+<br />
+<div class="container">
+  <form action="/update" method="post">
+   
+    <div class="card">
+      <div class="card-header text-center">
+        <h2>Edição de games</h2>
+      </div>
+      <div class="card-body">
+
+         <input type="hidden"
+          value="<%= games.id %>"
+          name="id"
+          />
+
+        <div class="row">
+          <div class="col-4">
+            <label>Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Digite o nome do game..."
+              name="nome"
+              value="<%= games.nome %>"
+              required
+            />
+          </div>
+          <div class="col-4">
+            <label>Categoria</label>
+            <div class="form-group">
+              <select class="form-control" id="categoria" name="categoria">
+                <option><%= games.categoria %></option>
+                <option>Guerra</option>
+                <option>aventura</option>
+                <option>luta</option>
+                <option>tiro</option>
+                
+              </select>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <label>Console</label>
+            <div class="form-group">
+              <select class="form-control" id="categoria" name="console">
+                <option selected><%= games.console %></option>
+                <option>PS5</option>
+                <option>Super Nintendo</option>
+                <option>Nitendo 64</option>
+                <option>PC</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <label for="totalAmt">Preco</label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                class="form-control"
+                placeholder="Digite o nome do game..."
+                name="preco"
+                  value="<%= games.preco %>"
+                required
+              />
+            </div>
+            <div class="col-4">
+              <label>Data</label>
+              <input
+                type="date"
+                class="form-control"
+                placeholder="Digite o nome do game..."
+                name="data"
+                  value="<%= games.data_lancamento %>"
+                required
+              />
+            </div>
+          </div>
+          
+          <div class="col-12">
+            <br>
+            <label class="label-control">Comentarios</label>
+            <div class="form-group">
+              <textarea
+                name="comentarios"
+                id="comentarios"
+                
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid gap-3">
+          <button type="submit" class="btn btn-success">ATUALIZAR</button>
+        </div>
+
+      </div>
+    </div>
+  
+  </form>
+</div>
+
+
+<div id="content" style="display: none;">
+<%- games.comentarios %>
+</div>
+
+<%- include('../partials/footer.ejs'); %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+	tinymce.init({
+					 language: "pt_BR",
+                selector: "#comentarios",
+                selector: 'textarea',
+                images_upload_url: '',
+                images_upload_base_path: 'C:\Users\Jonathan\Pictures\PERSONAGENS',
+                images_upload_credentials: true,
+                a11y_advanced_options: true,
+                plugins: [
+                    'advlist',
+                    'autolink',
+                    'link',
+                    'image',
+                    'lists',
+                    'preview',
+                    'searchreplace',
+                    'wordcount',
+                    'fullscreen',
+                    'insertdatetime',
+                    'media',
+                    'save',
+                    'table',
+                    'emoticons',
+                ],
+
+					 init_instance_callback: () => {
+						tinymce.get("comentarios").setContent(document.getElementById("content").innerHTML)
+
+					 }
+            })
+	
+</script>
+
